@@ -24,10 +24,10 @@
           <VBox spacing="10.0" styleClass="nav-panel" SplitPane.resizableWithParent="false">
              <children>
                 <Label styleClass="app-title" text="ChatApp" />
-                <Button fx:id="btnPersonalInfo" onAction="#showPersonalInfo" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button, active" text="Personal information" />
-                <Button fx:id="btnParameters" onAction="#showParameters" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="nav-button" text="Parametres" />
-                <VBox VBox.vgrow="ALWAYS" />
-                <Button fx:id="btnDisconnect" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="logout-button" text="Logout" />
+                <Button fx:id="btnPersonalInfo" onAction="#showPersonalInfo" mnemonicParsing="false" styleClass="nav-button, active" text="Personal information" />
+                <Button fx:id="btnParameters" onAction="#showParameters" mnemonicParsing="false" styleClass="nav-button" text="Parametres" />
+                <VBox VBox.vgrow="always" />
+                <Button fx:id="btnDisconnect" mnemonicParsing="false" styleClass="logout-button" text="Logout" />
              </children>
           </VBox>
           
@@ -44,10 +44,10 @@
                             <VBox alignment="top_center" spacing="10.0">
                                <children>
                                   <Circle fx:id="avatarCircle" fill="dodgerblue" radius="60.0" stroke="black" strokeType="inside" styleClass="avatar-circle" />
-                                  <Button mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #0084FF; -fx-cursor: hand;" text="Change" />
+                                  <Button fx:id="btnChange" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #0084FF; -fx-cursor: hand;" text="Change" />
                                </children>
                             </VBox>
-                            <GridPane hgap="20.0" vgap="15.0" HBox.hgrow="ALWAYS">
+                            <GridPane hgap="20.0" vgap="15.0" HBox.hgrow="always">
                               <columnConstraints>
                                 <ColumnConstraints hgrow="sometimes" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="sometimes" minWidth="10.0" prefWidth="100.0" />
@@ -85,7 +85,7 @@
                             </GridPane>
                          </children>
                       </HBox>
-                      <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+                      <VBox spacing="5.0" VBox.vgrow="always">
                          <children>
                             <Label styleClass="form-label" text="About you" />
                             <TextArea fx:id="bioTextArea" prefHeight="150.0" promptText="Write your own story..." wrapText="true" />
@@ -109,7 +109,7 @@
       <HBox alignment="center_left" styleClass="status-bar" BorderPane.alignment="center">
          <children>
             <Label fx:id="lblLeftStatus" text="All is good" />
-            <HBox HBox.hgrow="ALWAYS" />
+            <HBox HBox.hgrow="always" />
             <Label fx:id="lblRightStatus" text="Application works normally" />
          </children>
       </HBox>

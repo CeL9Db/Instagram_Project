@@ -126,3 +126,14 @@
     -fx-font-size: 12px;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 10, 0, 0, -3);
 }
+
+#chatList
+{
+    -fx-padding: 15px;
+    -fx-font-weight: bold;
+}
+#chatlist:focused {
+    -fx-border-color: #0084FF;
+    -fx-border-width: 1.5;
+    -fx-translate-x: 10px;
+}

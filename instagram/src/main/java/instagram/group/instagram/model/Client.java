@@ -31,7 +31,7 @@ public class Client
     private String password;
     private String nickname;
     private boolean status;
-    private LocalDateTime date;
+    private LocalDateTime date_reg;
     private String avatar;
     private String bio;
 

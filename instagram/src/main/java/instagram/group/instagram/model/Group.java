@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,11 @@ public class Group
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_group;
     private String name_group;
+
+    @ManyToOne
+    @JoinColumn(name = "admin")
     private Client admin;
+    
     private LocalDateTime date_reg;
 
     @JoinTable(

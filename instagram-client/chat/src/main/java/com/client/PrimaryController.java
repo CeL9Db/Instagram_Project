@@ -5,7 +5,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TextArea;
 
 public class PrimaryController {
 
@@ -14,7 +14,7 @@ public class PrimaryController {
         App.setRoot("secondary");
     }
 
-// --- КНОПКИ МЕНЮ ---
+    // buttons de menu
     @FXML private Button btnPersonalInfo;
     @FXML private Button btnParameters;
 
@@ -26,7 +26,7 @@ public class PrimaryController {
     @FXML
     private void showPersonalInfo(ActionEvent event) 
     {
-        // 1. change le fenêtre pour profileScreen
+        // change le fenêtre pour profileScreen
         // profileScreen.setVisible(true);
         // parametersScreen.setVisible(false);
 
@@ -46,5 +46,24 @@ public class PrimaryController {
         // changement des couleurs des boutons
         btnParameters.getStyleClass().add("active");
         btnPersonalInfo.getStyleClass().remove("active");
+    }
+
+    @FXML private Button btnSave;
+    @FXML private TextArea bioTextArea;
+    
+    @FXML
+    private void initialize()
+    {
+        ClientServer connection = new ClientServer();
+        btnSave.setOnAction(e -> {
+            String text = bioTextArea.getText();
+            if (text != null && !text.trim().isEmpty()) {
+                connection.send(text); // envoie le text au serveur
+                bioTextArea.clear(); // clean memory
+                
+            } else {
+                System.out.println("there's nothing to send...");
+            }
+        });
     }
 }
