@@ -25,6 +25,7 @@ public class Client
 {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @jakarta.persistence.Column(name = "id_client", nullable = false, updatable = false)
     private Integer id_client;
 
     private String email;

@@ -22,18 +22,19 @@ public class Message
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @jakarta.persistence.Column(name = "id_message", nullable = false, updatable = false)
     private Integer id_message;
 
     @ManyToOne
-    @JoinColumn(name = "fromEntity")
+    @JoinColumn(name = "from_someone")
     private Client fromEntity;
 
     @ManyToOne
-    @JoinColumn(name = "toGroup")
+    @JoinColumn(name = "to_group")
     private Group toGroup;
 
     @ManyToOne
-    @JoinColumn(name = "toUser")
+    @JoinColumn(name = "to_user")
     private Client toUser;
 
     private LocalDateTime date;

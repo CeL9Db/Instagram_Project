@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.ParametersController" spacing="20.0" alignment="TOP_CENTER" styleClass="content-panel">
+    <children>
+        <Label text="Theme" styleClass="form-label" />
+        <HBox spacing="10.0">
+            <children>
+                <RadioButton fx:id="lightThemeRadio" text="Light" toggleGroup="$themeGroup" selected="true" />
+                <RadioButton fx:id="darkThemeRadio" text="Dark" toggleGroup="$themeGroup" />
+            </children>
+        </HBox>
+        <Button fx:id="btnApplyTheme" text="Apply Theme" styleClass="save-button" />
+        <Button fx:id="btnBackToChats" text="Back to chats" styleClass="logout-button" />
+    </children>
+</VBox>

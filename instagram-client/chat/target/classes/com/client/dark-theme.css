@@ -1,0 +1,76 @@
+/* Dark Theme Improved */
+.root {
+    -fx-base: #181a20;
+    -fx-background: #181a20;
+    -fx-text-fill: #e0e0e0;
+}
+
+.app-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #90caf9;
+}
+
+.nav-panel {
+    -fx-background-color: #23272e;
+}
+
+.content-panel {
+    -fx-background-color: #23272e;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 20px;
+    -fx-text-fill: #e0e0e0;
+}
+
+.save-button {
+    -fx-background-color: #1976d2;
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, #1976d2, 4, 0.2, 0, 1);
+}
+
+.logout-button {
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #ef5350;
+    -fx-background-radius: 8px;
+}
+
+.status-bar {
+    -fx-background-color: #23272e;
+    -fx-padding: 8px 16px;
+    -fx-text-fill: #b0b0b0;
+}
+
+.avatar-circle {
+    -fx-effect: dropshadow(gaussian, #1976d2, 8, 0.2, 0, 2);
+}
+
+.text-field, .text-area {
+    -fx-background-color: #23272e;
+    -fx-text-fill: #e0e0e0;
+    -fx-border-color: #444;
+    -fx-border-radius: 5px;
+}
+
+.label, .form-label {
+    -fx-text-fill: #e0e0e0;
+}
+
+.button {
+    -fx-background-color: #23272e;
+    -fx-text-fill: #e0e0e0;
+    -fx-border-radius: 6px;
+}
+
+.list-view {
+    -fx-background-color: #23272e;
+    -fx-control-inner-background: #23272e;
+    -fx-cell-hover-color: #31343b;
+    -fx-text-fill: #e0e0e0;
+}
+
+.split-pane {
+    -fx-background-color: #181a20;
+}

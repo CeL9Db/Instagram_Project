@@ -6,6 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 
 public class PrimaryController {
 
@@ -14,23 +18,25 @@ public class PrimaryController {
         App.setRoot("secondary");
     }
 
+    @FXML
+    private BorderPane rootPane;
+
     // buttons de menu
     @FXML private Button btnPersonalInfo;
     @FXML private Button btnParameters;
-
-    // pannelles
-    // @FXML private VBox profileScreen;
-    // @FXML private VBox parametersScreen;
+    @FXML private Button btnDisconnect;
 
     // PersonalInfo page
     @FXML
     private void showPersonalInfo(ActionEvent event) 
     {
-        // change le fenêtre pour profileScreen
-        // profileScreen.setVisible(true);
-        // parametersScreen.setVisible(false);
-
-        // changement des couleurs des boutons
+        try 
+        {
+            Node profile = FXMLLoader.load(getClass().getResource("/com/client/personnalPage.fxml"));
+            rootPane.setCenter(profile);
+        } 
+        catch (IOException e) 
+            {e.printStackTrace();}
         btnPersonalInfo.getStyleClass().add("active");
         btnParameters.getStyleClass().remove("active");
     }
@@ -39,11 +45,13 @@ public class PrimaryController {
     @FXML
     private void showParameters(ActionEvent event) 
     {
-        // change le fenêtre pour parametersScreen
-        // profileScreen.setVisible(false);
-        // parametersScreen.setVisible(true);
-
-        // changement des couleurs des boutons
+        try 
+        {
+            Node params = FXMLLoader.load(getClass().getResource("/com/client/parametres.fxml"));
+            rootPane.setCenter(params);
+        } 
+        catch (IOException e) 
+            {e.printStackTrace();}
         btnParameters.getStyleClass().add("active");
         btnPersonalInfo.getStyleClass().remove("active");
     }
@@ -54,16 +62,15 @@ public class PrimaryController {
     @FXML
     private void initialize()
     {
-        ClientServer connection = new ClientServer();
         btnSave.setOnAction(e -> {
             String text = bioTextArea.getText();
-            if (text != null && !text.trim().isEmpty()) {
-                connection.send(text); // envoie le text au serveur
+            if (text != null && !text.trim().isEmpty()) 
+            {
+                App.getClientServer().send(text); // envoie le text au serveur
                 bioTextArea.clear(); // clean memory
-                
-            } else {
-                System.out.println("there's nothing to send...");
-            }
+            } 
+            else 
+                {System.out.println("there's nothing to send...");}
         });
     }
 }

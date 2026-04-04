@@ -27,14 +27,14 @@
     -fx-text-fill: #666666;
     -fx-font-weight: bold;
     -fx-alignment: center_left;
-    -fx-background-radius: 10;
-    -fx-padding: 10 15 10 15;
+    -fx-background-radius: 13;
+    -fx-padding: 12 17 12 17;
     -fx-cursor: hand;
 }
 
 .nav-button:hover /*style pour les boutons hover*/
 {
-    -fx-background-color: #F0F4F8;
+    -fx-background-color: #e1e8f0;
     -fx-text-fill: #0084FF;
 }
 
