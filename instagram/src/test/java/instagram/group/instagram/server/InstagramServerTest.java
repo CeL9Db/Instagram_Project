@@ -151,4 +151,121 @@ class InstagramServerTest
         verify(bobHandler).send("MSG_GROUP|projet|alice|réunion à 14h");
         verify(aliceHandler, never()).send(anyString());
     }
+
+    // ---------- groupes ----------
+
+    @Test
+    void createGroup_creeLeGroupeAvecLAdminCommeMembre()
+    {
+        Client alice = creerClient(1, "alice");
+        when(groupRepository.findByName_group("projet")).thenReturn(Optional.empty());
+        when(clientRepository.findByNickname("alice")).thenReturn(Optional.of(alice));
+
+        server.createGroup("projet", "alice");
+
+        ArgumentCaptor<Group> captor = ArgumentCaptor.forClass(Group.class);
+        verify(groupRepository).save(captor.capture());
+        Group group = captor.getValue();
+        assertEquals("projet", group.getName_group());
+        assertEquals(alice, group.getAdmin());
+        assertEquals(List.of(alice), group.getMembers());
+        assertNotNull(group.getDate_reg());
+    }
+
+    @Test
+    void createGroup_nomDejaPris_rienNEstCree()
+    {
+        when(groupRepository.findByName_group("projet"))
+            .thenReturn(Optional.of(creerGroupe("projet", creerClient(1, "alice"))));
+
+        server.createGroup("projet", "bob");
+
+        verify(groupRepository, never()).save(any());
+    }
+
+    @Test
+    void createGroup_adminInconnu_rienNEstCree()
+    {
+        when(groupRepository.findByName_group("projet")).thenReturn(Optional.empty());
+        when(clientRepository.findByNickname("fantome")).thenReturn(Optional.empty());
+
+        server.createGroup("projet", "fantome");
+
+        verify(groupRepository, never()).save(any());
+    }
+
+    @Test
+    void addMemberToGroup_parLAdmin_ajouteLeMembre()
+    {
+        Client alice = creerClient(1, "alice");
+        Client carol = creerClient(3, "carol");
+        Group group = creerGroupe("projet", alice);
+        when(groupRepository.findByName_group("projet")).thenReturn(Optional.of(group));
+        when(clientRepository.findByNickname("carol")).thenReturn(Optional.of(carol));
+
+        String erreur = server.addMemberToGroup("projet", "carol", "alice");
+
+        assertNull(erreur);	// null = pas d'erreur
+        assertTrue(group.getMembers().contains(carol));
+        verify(groupRepository).save(group);
+    }
+
+    @Test
+    void addMemberToGroup_pasAdmin_refuse()
+    {
+        Client alice = creerClient(1, "alice");
+        Group group = creerGroupe("projet", alice);
+        when(groupRepository.findByName_group("projet")).thenReturn(Optional.of(group));
+        when(clientRepository.findByNickname("carol")).thenReturn(Optional.of(creerClient(3, "carol")));
+
+        String erreur = server.addMemberToGroup("projet", "carol", "bob");
+
+        assertEquals("Only the group admin can add members", erreur);
+        verify(groupRepository, never()).save(any());
+    }
+
+    @Test
+    void addMemberToGroup_dejaMembre_refuse()
+    {
+        Client alice = creerClient(1, "alice");
+        Client carol = creerClient(3, "carol");
+        Group group = creerGroupe("projet", alice);
+        group.getMembers().add(carol);
+        when(groupRepository.findByName_group("projet")).thenReturn(Optional.of(group));
+        when(clientRepository.findByNickname("carol")).thenReturn(Optional.of(carol));
+
+        String erreur = server.addMemberToGroup("projet", "carol", "alice");
+
+        assertEquals("Member carol is already in group projet", erreur);
+        verify(groupRepository, never()).save(any());
+    }
+
+    @Test
+    void addMemberToGroup_groupeInconnu_renvoieUneErreur()
+    {
+        when(groupRepository.findByName_group("inconnu")).thenReturn(Optional.empty());
+
+        String erreur = server.addMemberToGroup("inconnu", "carol", "alice");
+
+        assertEquals("Group not found: inconnu", erreur);
+    }
+
+    // ---------- contacts ----------
+
+    @Test
+    void updateContactsForUser_envoieLesAutresUtilisateursEtSesGroupes()
+    {
+        Client alice = creerClient(1, "alice");
+        when(clientRepository.findAll())
+            .thenReturn(List.of(alice, creerClient(2, "bob"), creerClient(3, "carol")));
+        when(groupRepository.findByMemberNickname("alice"))
+            .thenReturn(List.of(creerGroupe("projet", alice), creerGroupe("famille", alice)));
+        UserHandler handler = mock(UserHandler.class);
+        when(handler.getUsername()).thenReturn("alice");
+
+        server.updateContactsForUser(handler);
+
+        verify(handler).send("CONTACTS|bob,carol");	// alice ne se voit pas elle-même
+        verify(handler).send("GROUPS|projet,famille");
+    }
 }
