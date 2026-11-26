@@ -1,0 +1,6 @@
+# Configuration de l'éditeur
+.vscode/
+
+# Fichiers compilés et dossiers de build Maven
+*.class
+target/

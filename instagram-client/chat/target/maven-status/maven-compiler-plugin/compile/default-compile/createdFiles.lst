@@ -1,9 +1,0 @@
-com\client\SecondaryController.class
-com\client\UserSession.class
-com\client\App.class
-com\client\LoginController.class
-com\client\ClientServer.class
-module-info.class
-com\client\MainChatController.class
-com\client\PrimaryController.class
-com\client\RegisterController.class
