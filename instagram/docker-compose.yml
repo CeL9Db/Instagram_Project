@@ -1,0 +1,35 @@
+services:
+  # base de donnees PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: instagram
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+    # healthcheck passe par le shell, avec l'argument -U postgres (user) et pg_isready pour lancer une vérif si la BD est prête de recevoir les requêtes
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # serveur Java (construit a partir du Dockerfile)
+  instagram-server:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: 1234
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
