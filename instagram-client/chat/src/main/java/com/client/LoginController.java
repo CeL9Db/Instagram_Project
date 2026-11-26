@@ -38,7 +38,7 @@ public class LoginController
             clientServer.setMessageListener(response -> {
                 if (response.startsWith("LOGIN_SUCCESS|")) 
                 {
-                    String nickname = response.substring(14);
+                    String nickname = response.substring("LOGIN_SUCCESS|".length());
                     UserSession.setEmail(email);
                     UserSession.setNickname(nickname);
                     javafx.application.Platform.runLater(() -> {

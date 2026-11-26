@@ -44,7 +44,7 @@ public class RegisterController {
             clientServer.setMessageListener(response -> {
                 if (response.startsWith("REGISTER_SUCCESS|")) 
                 {
-                    String nickname = response.substring(16);
+                    String nickname = response.substring("REGISTER_SUCCESS|".length());
                     UserSession.setEmail(email);
                     UserSession.setNickname(nickname);
                     javafx.application.Platform.runLater(() -> {
